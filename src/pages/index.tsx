@@ -2,9 +2,12 @@ import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredCSR } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredSSR } from "@auth0/nextjs-auth0";
+import { Button, Modal, Typography } from "@/components";
+import { useRef } from "react";
+import { AddBookModal } from "@/views/Books";
 
 export default withPageAuthRequiredCSR(function Home() {
-  const session = useUser();
+  const modalRef = useRef<{ open: () => void }>();
 
   return (
     <>
@@ -14,7 +17,18 @@ export default withPageAuthRequiredCSR(function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Hello next</h1>
+      <section className="p-5">
+        <div className="flex justify-between">
+          <Typography as="h1">Книги</Typography>
+          <Button
+            label="Добавить книгу"
+            onClick={() => {
+              modalRef.current?.open();
+            }}
+          />
+        </div>
+      </section>
+      <AddBookModal ref={modalRef} />
     </>
   );
 });

@@ -27,7 +27,7 @@ model Book {
   status BookStatus @default(NEW)
   descriptrion String?
   review String?
-  rating Int @db.SmallInt
+  rating Int? @db.SmallInt
   notes Note[]
   users BooksOnUser[]
 }

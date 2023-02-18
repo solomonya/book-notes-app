@@ -2,5 +2,8 @@
   "printWidth": 100,
   "tabWidth": 2,
   "semi": true,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "tailwindConfig": "./tailwind.config.js",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "pluginSearchDirs": false
 }

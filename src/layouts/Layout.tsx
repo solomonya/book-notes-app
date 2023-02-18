@@ -1,4 +1,4 @@
-import { Footer, Header, Sidebar } from "@/views";
+import { Footer, Header } from "@/views/Layout";
 import React from "react";
 
 interface ILayoutProps {
@@ -9,12 +9,7 @@ export default function Layout({ children }: ILayoutProps): React.ReactElement {
   return (
     <React.Fragment>
       <Header />
-      <main className="flex min-h-screen">
-        <Sidebar title="Список книг">
-          <h1>Список книг TODO...</h1>
-        </Sidebar>
-        {children}
-      </main>
+      <main>{children}</main>
       <Footer />
     </React.Fragment>
   );
