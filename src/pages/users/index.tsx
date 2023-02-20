@@ -29,7 +29,7 @@ function Users({ users }: TProps) {
 export async function getStaticProps() {
   const users = await prisma.user.findMany();
 
-  return { props: { users: JSON.parse(JSON.stringify(users)) } };
+  return { props: { users } };
 }
 
 export default Users;

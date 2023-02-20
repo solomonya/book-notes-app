@@ -2,9 +2,8 @@ import { Button } from "@/components";
 import { Input, Select } from "@/components/forms";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { EGenre, addBookFormSchema, genresTitles } from "./model";
-import { apiClient } from "@/api/apiClient";
-import { useMutation } from "@/api/useMutation";
+import { EGenre, addBookFormSchema, genresTitles } from "../model";
+import { useMutation } from "@/api";
 
 export const AddBookForm = () => {
   const { control, handleSubmit } = useForm({
@@ -32,7 +31,7 @@ export const AddBookForm = () => {
       <Select label="Жанр" control={control} name="genre" options={genresTitles} />
       <Input control={control} name="description" label="Описание" />
       <div className="mx-auto">
-        <Button label="Добавить книгу" />
+        <Button label="Добавить книгу" loading={mutationState.isLoading} />
       </div>
     </form>
   );

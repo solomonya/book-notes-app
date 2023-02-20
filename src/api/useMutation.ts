@@ -9,6 +9,8 @@ interface IMutationState {
   error: null | unknown;
 }
 
+type TMutationReturn = [(params: IRequestParams) => Promise<any>, IMutationState];
+
 const initialMutationState = {
   isLoading: false,
   isError: false,
@@ -16,7 +18,7 @@ const initialMutationState = {
   error: null,
 };
 
-export const useMutation = () => {
+export const useMutation = (): TMutationReturn => {
   const [mutationState, setMutationState] = useState<IMutationState>(initialMutationState);
 
   const mutationCall = async (params: IRequestParams) => {

@@ -25,7 +25,7 @@ model Book {
   createdAt DateTime @default(now())
   genre Genre
   status BookStatus @default(NEW)
-  descriptrion String?
+  description String?
   review String?
   rating Int? @db.SmallInt
   notes Note[]

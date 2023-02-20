@@ -9,7 +9,7 @@ export const EGenre = {
 
 type TGenre = keyof typeof EGenre;
 
-const generTitleMapper: Record<TGenre, string> = {
+export const generTitleMapper: Record<TGenre, string> = {
   FICTION: 'Художественная литература',
   NON_FICTION: 'Деловая литература',
   PROGRAMMING: 'Программирование',

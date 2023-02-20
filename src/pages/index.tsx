@@ -2,11 +2,18 @@ import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredCSR } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredSSR } from "@auth0/nextjs-auth0";
-import { Button, Modal, Typography } from "@/components";
+import { Button, Modal, ShowList, Typography } from "@/components";
 import { useRef } from "react";
-import { AddBookModal } from "@/views/Books";
+import { AddBookModal, BookCard } from "@/views/Books";
+import { prisma } from "@/server/prismaClient";
+import { Book } from "@prisma/client";
+import { GetServerSideProps } from "next";
+interface Props {
+  books: Book[]
+}
 
-export default withPageAuthRequiredCSR(function Home() {
+
+export default withPageAuthRequiredCSR(function Home({ books }: Props) {
   const modalRef = useRef<{ open: () => void }>();
 
   return (
@@ -27,10 +34,24 @@ export default withPageAuthRequiredCSR(function Home() {
             }}
           />
         </div>
+        <div className="grid grid-cols-3 gap-5">
+          <ShowList list={books}>
+            {book => <BookCard {...book} key={book.id} />}
+          </ShowList>
+        </div>
       </section>
       <AddBookModal ref={modalRef} />
     </>
   );
 });
 
-export const getServerSideProps = withPageAuthRequiredSSR();
+export const getServerSideProps: GetServerSideProps = async () => {
+  withPageAuthRequiredSSR();
+
+  const books = await prisma.book.findMany();
+  return {
+    props: {
+      books,
+    },
+  };
+};
