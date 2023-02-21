@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { EGenre, addBookFormSchema, genresTitles } from "../model";
 import { useMutation } from "@/api";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export const AddBookForm = () => {
+  const { user } = useUser();
+
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(addBookFormSchema),
     defaultValues: {
@@ -18,8 +21,8 @@ export const AddBookForm = () => {
 
   const onSubmit = async (data: unknown) => {
     try {
-      const parsedData = await addBookFormSchema.validate(data);
-      await addBook({ method: "POST", body: parsedData, endpoint: "/books/create" });
+      const parsedBookData = await addBookFormSchema.validate(data);
+      await addBook({ method: "POST", body: { book: parsedBookData, user: { id: user!.sid } }, endpoint: "/books/create" });
     } catch (e) {
       console.error(e);
     }

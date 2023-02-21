@@ -11,46 +11,46 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  email String @unique
-  username String?
-  createdAt DateTime @default(now())
-  notes Note[]
-  books BooksOnUser[]
+  id        String        @id @default(cuid())
+  email     String        @unique
+  username  String?
+  createdAt DateTime      @default(now())
+  notes     Note[]
+  books     BooksOnUser[]
 }
 
 model Book {
-  id String @id @default(cuid())
-  title String @unique @db.VarChar(255)
-  createdAt DateTime @default(now())
-  genre Genre
-  status BookStatus @default(NEW)
+  id          String        @id @default(cuid())
+  title       String        @unique @db.VarChar(255)
+  createdAt   DateTime      @default(now())
+  genre       Genre
+  status      BookStatus    @default(NEW)
   description String?
-  review String?
-  rating Int? @db.SmallInt
-  notes Note[]
-  users BooksOnUser[]
+  review      String?
+  rating      Int?          @db.SmallInt
+  notes       Note[]
+  users       BooksOnUser[]
 }
 
 model BooksOnUser {
-  bookId String
-  userId String
-  book Book @relation(fields: [bookId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  bookId     String
+  userId     String
+  book       Book     @relation(fields: [bookId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
   assignedAt DateTime @default(now())
 
   @@id([bookId, userId])
 }
 
 model Note {
-  id String @id @default(cuid())
-  title String @db.VarChar(255)
+  id        String   @id @default(cuid())
+  title     String   @db.VarChar(255)
   createdAt DateTime @default(now())
-  content String
-  userId String
-  bookId String?
-  book Book? @relation(fields: [bookId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+  content   String
+  userId    String
+  bookId    String?
+  book      Book?    @relation(fields: [bookId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Genre {
@@ -66,3 +66,4 @@ enum BookStatus {
   READING
   FINISHED
 }
+

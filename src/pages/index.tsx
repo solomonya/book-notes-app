@@ -1,13 +1,13 @@
 import Head from "next/head";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredCSR } from "@auth0/nextjs-auth0/client";
 import { withPageAuthRequired as withPageAuthRequiredSSR } from "@auth0/nextjs-auth0";
-import { Button, Modal, ShowList, Typography } from "@/components";
+import { Button, ShowList, Typography } from "@/components";
 import { useRef } from "react";
 import { AddBookModal, BookCard } from "@/views/Books";
 import { prisma } from "@/server/prismaClient";
 import { Book } from "@prisma/client";
 import { GetServerSideProps } from "next";
+
 interface Props {
   books: Book[]
 }
