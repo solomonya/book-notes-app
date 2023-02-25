@@ -1,26 +1,31 @@
-import { Typography } from "@/components";
+import { Button, Typography } from "@/components";
 import { prisma } from "@/server/prismaClient";
 import { Editor } from "@/views/Editor";
 import { Book } from "@prisma/client";
 import { GetServerSideProps } from "next";
 
 interface Props {
-  book: Book
+  book: Book;
 }
 
 const NotePage = ({ book }: Props) => {
   return (
-    <main className="p-5 flex flex-col gap-y-5">
-      <Typography as="h4">{book.title}</Typography>
-      <Typography as="h4">Note page</Typography>
-
-      <Editor />
-    </main>
+    <article className="p-7">
+      <section className="mx-auto flex flex-col items-center gap-y-5 lg:w-[70%]">
+        <header className="flex w-full items-center justify-between">
+          <Typography as="h4">{book.title}</Typography>
+          <Button label="Сохранить" />
+        </header>
+        <div className="w-full grow border border-slate-200 py-3 lg:rounded-md lg:py-5">
+          <Editor />
+        </div>
+      </section>
+    </article>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { bookId, noteId } = context.params as { bookId: string, noteId: string };
+  const { bookId, noteId } = context.params as { bookId: string; noteId: string };
 
   console.log(noteId);
 
