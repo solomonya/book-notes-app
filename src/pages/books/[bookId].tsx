@@ -1,5 +1,5 @@
 import { Button, Typography } from "@/components";
-import { prisma } from "@/server/prismaClient";
+import { prisma } from "@/prisma";
 import { generTitleMapper } from "@/views/Books/model";
 import { createId } from "@paralleldrive/cuid2";
 import { Book } from "@prisma/client";
@@ -10,7 +10,6 @@ interface Props {
   book: Book;
   newNoteId: string;
 }
-
 
 const BookPage = ({ book, newNoteId }: Props) => {
   return (
@@ -35,7 +34,6 @@ const BookPage = ({ book, newNoteId }: Props) => {
   );
 };
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { bookId } = context.params as { bookId: string };
   const book = await prisma.book.findUnique({
@@ -44,11 +42,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   });
 
-
   return {
     props: {
       book,
-      newNoteId: createId()
+      newNoteId: createId(),
     },
   };
 };
