@@ -2,7 +2,7 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "react/display-name": [
-      "disabled"
+      0
     ]
-  },
+  }
 }
