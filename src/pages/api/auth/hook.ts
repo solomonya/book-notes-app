@@ -1,5 +1,5 @@
 // pages/api/auth/hook.ts
-import  { prisma } from '@/server/prismaClient';
+import  { prisma } from '@/prisma';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

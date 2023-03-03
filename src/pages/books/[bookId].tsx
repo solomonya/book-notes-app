@@ -1,17 +1,19 @@
-import { Button, Typography } from "@/components";
+import { Button, ShowList, Typography } from "@/components";
 import { prisma } from "@/prisma";
 import { generTitleMapper } from "@/views/Books/model";
 import { createId } from "@paralleldrive/cuid2";
-import { Book } from "@prisma/client";
+import { Book, Note } from "@prisma/client";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 interface Props {
   book: Book;
   newNoteId: string;
+  notes: Note[]
 }
 
-const BookPage = ({ book, newNoteId }: Props) => {
+const BookPage = ({ book, newNoteId, notes }: Props) => {
+  console.log(notes);
   return (
     <main className="flex flex-col gap-y-5 p-5">
       <div className="flex justify-between">
@@ -29,6 +31,21 @@ const BookPage = ({ book, newNoteId }: Props) => {
             <Button label="Добавить заметку" variant="link" />
           </Link>
         </div>
+        <ul className="flex flex-col gap-y-3 py-5">
+          <ShowList list={notes}>
+            {
+              note => {
+                return (
+                  <li key={note.id}>
+                    <Link key={note.id} href={`/books/notes/${encodeURIComponent(book.id)}/${note.id}`}>
+                     {note.title}
+                    </Link>
+                  </li>
+                );
+              }
+            }
+          </ShowList>
+        </ul>
       </section>
     </main>
   );
@@ -41,11 +58,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       id: bookId,
     },
   });
+  const notes = await prisma.note.findMany({
+    where: {
+      bookId
+    }
+  });
 
   return {
     props: {
       book,
       newNoteId: createId(),
+      notes
     },
   };
 };

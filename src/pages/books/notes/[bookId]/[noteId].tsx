@@ -1,10 +1,13 @@
+import { useMutation } from "@/api";
 import { Button, EditableText, EditableTextMethods, Typography } from "@/components";
+import { noteCreateModel } from "@/models/note";
 import { prisma } from "@/prisma";
 import { Editor, EditorMethods } from "@/views/Editor";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Book, Note } from "@prisma/client";
 import { GetServerSideProps } from "next";
 import { useRef } from "react";
+import yup from 'yup';
 
 type QueryParams = {
   bookId: string;
@@ -20,15 +23,24 @@ const NotePage = ({ book, note, ids }: Props) => {
   const editorRef = useRef<EditorMethods>();
   const titleRef = useRef<EditableTextMethods>();
   const { user } = useUser();
-
+  const [createNote, { isLoading }] = useMutation();
+  
   const onSave = async () => {
-    console.log({
-      id: ids.noteId,
-      noteContent: editorRef.current?.getContent(),
+    const noteData = {
+      noteId: ids.noteId,
+      content: editorRef.current?.getContent(),
       title: titleRef.current?.getContent(),
       bookId: ids.bookId,
-      userId: user?.sid ?? "",
-    });
+      userEmail: user?.email,
+    };
+
+    try {
+      const note = await noteCreateModel.validate(noteData);
+      await createNote({ method: 'POST', endpoint: '/notes/create', body: note });
+    } 
+    catch(e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -37,7 +49,7 @@ const NotePage = ({ book, note, ids }: Props) => {
         <header className="flex w-full flex-col gap-y-5">
           <div className="flex w-full items-center justify-between">
             <Typography as="h4">{book.title}</Typography>
-            <Button label="Сохранить" onClick={onSave} />
+            <Button label="Сохранить" onClick={onSave} loading={isLoading} />
           </div>
           <EditableText ref={titleRef} defaultText={note?.title} />
         </header>

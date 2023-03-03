@@ -1,6 +1,6 @@
 import { addBookSchema } from './model';
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/server/prismaClient";
+import { prisma } from "@/prisma";
 
 
 

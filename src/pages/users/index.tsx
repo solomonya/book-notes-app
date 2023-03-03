@@ -1,5 +1,5 @@
 import { ShowList } from "@/components";
-import { prisma } from "@/server/prismaClient";
+import { prisma } from "@/prisma";
 import { User } from "@prisma/client";
 import React from "react";
 

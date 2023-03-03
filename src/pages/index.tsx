@@ -4,7 +4,7 @@ import { withPageAuthRequired as withPageAuthRequiredSSR } from "@auth0/nextjs-a
 import { Button, ShowList, Typography } from "@/components";
 import { useRef } from "react";
 import { AddBookModal, BookCard } from "@/views/Books";
-import { prisma } from "@/server/prismaClient";
+import { prisma } from "@/prisma";
 import { Book } from "@prisma/client";
 import { GetServerSideProps } from "next";
 
