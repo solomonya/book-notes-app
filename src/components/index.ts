@@ -1,5 +1,11 @@
-export { Button } from './ui/Button/Button';
-export { ShowIf } from './other/ShowIf/ShowIf';
-export { ShowList } from './other/ShowList/ShowList';
-export { Typography } from './ui/Typography/Typography';
-export { Modal } from './ui/Modal/Modal';
+import { EditableTextMethods } from "./ui/EditableText/model";
+import { EditableText } from "./ui/EditableText/EditableText";
+
+import { Button } from "./ui/Button/Button";
+import { ShowIf } from "./other/ShowIf/ShowIf";
+import { ShowList } from "./other/ShowList/ShowList";
+import { Typography } from "./ui/Typography/Typography";
+import { Modal } from "./ui/Modal/Modal";
+
+export { EditableText, Button, ShowIf, Typography, Modal, ShowList };
+export type { EditableTextMethods };

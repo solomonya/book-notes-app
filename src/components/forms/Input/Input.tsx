@@ -1,10 +1,12 @@
+import { ShowIf } from "@/components/other/ShowIf/ShowIf";
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 interface Props<T extends FieldValues> {
-  label: string;
+  label?: string;
   name: Path<T>;
   rules?: Record<string, number | string | boolean>;
   control: Control<T>;
+  defaultValue?: string;
 }
 
 const Input = <T extends FieldValues>(props: Props<T>): React.ReactElement => {
@@ -17,7 +19,9 @@ const Input = <T extends FieldValues>(props: Props<T>): React.ReactElement => {
 
   return (
     <div className="flex flex-col gap-y-3">
-      <label>{props.label}</label>
+      <ShowIf condition={Boolean(props.label)}>
+        <label>{props.label}</label>
+      </ShowIf>
       <input {...field} className="rounded-md border border-slate-400 p-3" />
     </div>
   );
