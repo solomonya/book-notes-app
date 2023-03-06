@@ -24,7 +24,7 @@ export default withPageAuthRequiredCSR(function Home({ books }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="p-5">
+      <section className="p-5 flex flex-col gap-y-7">
         <div className="flex justify-between">
           <Typography as="h1">Книги</Typography>
           <Button
@@ -34,7 +34,7 @@ export default withPageAuthRequiredCSR(function Home({ books }: Props) {
             }}
           />
         </div>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-3 gap-5">
           <ShowList list={books}>
             {book => <BookCard {...book} key={book.id} />}
           </ShowList>

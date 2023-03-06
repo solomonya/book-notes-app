@@ -7,5 +7,6 @@ export const typographyStyle: Record<typographyVariant, string> = {
   h4: 'font-bold text-lg',
   h5: '',
   h6: '',
-  body: ''
+  body: '',
+  link: 'font-medium text-blue-600 dark:text-blue-500 hover:underline'
 }

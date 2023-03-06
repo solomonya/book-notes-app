@@ -1,6 +1,6 @@
 import { ElementType } from "react";
 
-export type typographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body";
+export type typographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body" | "link";
 
 export const variantsMap: Record<typographyVariant, ElementType> = {
   h1: "h1",
@@ -10,6 +10,7 @@ export const variantsMap: Record<typographyVariant, ElementType> = {
   h5: "h5",
   h6: "h6",
   body: "p",
+  link: "link"
 };
 
 export interface Props {
