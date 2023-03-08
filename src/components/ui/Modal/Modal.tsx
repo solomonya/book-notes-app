@@ -14,7 +14,7 @@ interface OverlayProps {
 
 const Overlay = (props: OverlayProps) => {
   return (
-    <div className="absolute top-0 left-0 flex min-h-screen w-screen items-end justify-center bg-black opacity-70 lg:items-center">
+    <div className="absolute z-50 top-0 left-0 flex min-h-screen w-screen items-end justify-center bg-black/[0.7] lg:items-center">
       {props.children}
     </div>
   );
